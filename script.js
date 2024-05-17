@@ -29,7 +29,6 @@ function addTask() {
             saveData();
         });
         li.appendChild(span);
-        
 
         listContainer.appendChild(li);
     }
@@ -53,6 +52,8 @@ listContainer.addEventListener("click", function (e) {
 }, false);
 
 
+
+
 function saveData() {
     localStorage.setItem("data", listContainer.innerHTML);
 }
@@ -66,25 +67,28 @@ function show() {
             if (this.checked) {
                 li.classList.add("check");
                 checkbox.checked = true;
-
             } else {
                 li.classList.remove("check");
                 checkbox.checked = false;
             }
-            
+            saveData();
         });
 
         const span = li.querySelector("span");
         span.addEventListener("click", function () {
             li.remove();
-            
+            saveData();
         });
-
 
         if (li.classList.contains("check")) {
             checkbox.checked = true;
         }
     });
+}
+
+function deleteAllTasks() {
+    listContainer.innerHTML = "";
+    saveData();
 }
 
 show();
