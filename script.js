@@ -10,7 +10,7 @@ function addTask() {
         li.addEventListener('dragstart', dragStart);
         li.addEventListener('dragover', dragOver);
         li.addEventListener('drop', drop);
-        li.addEventListener('dragend', dragEnd); // Added dragend event to remove dragging class
+        li.addEventListener('dragend', dragEnd);
 
         let checkbox = document.createElement("input");
         checkbox.type = "checkbox";
@@ -24,16 +24,38 @@ function addTask() {
         });
         li.appendChild(checkbox);
 
-        let taskText = document.createTextNode(inputbox.value);
+        let taskText = document.createElement("span");
+        taskText.textContent = inputbox.value;
         li.appendChild(taskText);
 
-        let span = document.createElement("span");
+        let span = document.createElement("p");
         span.innerHTML = "\u00d7";
         span.addEventListener("click", function () {
             li.remove();
             saveData();
         });
         li.appendChild(span);
+
+        let edit = document.createElement("button");
+        edit.innerHTML = "\u270e";
+        edit.addEventListener("click", function () {
+            let input = document.createElement("input");
+            input.type = "text";
+            input.value = taskText.textContent;
+            input.addEventListener("blur", function () {
+                taskText.textContent = input.value;
+                li.replaceChild(taskText, input);
+                saveData();
+            });
+            input.addEventListener("keydown", function (e) {
+                if (e.key === "Enter") {
+                    input.blur();
+                }
+            });
+            li.replaceChild(input, taskText);
+            input.focus();
+        });
+        li.appendChild(edit);
 
         listContainer.appendChild(li);
     }
@@ -61,31 +83,49 @@ function saveData() {
 }
 
 function show() {
-    listContainer.innerHTML = localStorage.getItem("data");
+    listContainer.innerHTML = localStorage.getItem("data") || "";
 
     Array.from(listContainer.getElementsByTagName("li")).forEach(li => {
         li.setAttribute('draggable', true);
         li.addEventListener('dragstart', dragStart);
         li.addEventListener('dragover', dragOver);
         li.addEventListener('drop', drop);
-        li.addEventListener('dragend', dragEnd); // Added dragend event to remove dragging class
+        li.addEventListener('dragend', dragEnd);
 
         const checkbox = li.querySelector("input[type='checkbox']");
         checkbox.addEventListener("change", function () {
             if (this.checked) {
                 li.classList.add("check");
-                checkbox.checked = true;
             } else {
                 li.classList.remove("check");
-                checkbox.checked = false;
             }
             saveData();
         });
 
-        const span = li.querySelector("span");
+        const span = li.querySelector("p");
         span.addEventListener("click", function () {
             li.remove();
             saveData();
+        });
+
+        const edit = li.querySelector("button");
+        edit.addEventListener("click", function () {
+            let taskText = li.querySelector("span:nth-of-type(1)");
+            let input = document.createElement("input");
+            input.type = "text";
+            input.value = taskText.textContent;
+            input.addEventListener("blur", function () {
+                taskText.textContent = input.value;
+                li.replaceChild(taskText, input);
+                saveData();
+            });
+            input.addEventListener("keydown", function (e) {
+                if (e.key === "Enter") {
+                    input.blur();
+                }
+            });
+            li.replaceChild(input, taskText);
+            input.focus();
         });
 
         if (li.classList.contains("check")) {
