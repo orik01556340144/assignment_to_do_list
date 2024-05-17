@@ -69,15 +69,21 @@
 
 }
 
+.list{}
+
+
+
 ul li{
 
-padding-top: 18px;
+
 user-select: none;
 list-style: none;
 cursor: pointer;
 position: relative;
-padding-left: 38px;
+
 font-size: larger;
+padding: 10px;
+
 
 }
 
@@ -89,12 +95,7 @@ ul li::before{
   height: 25px; 
   width: 28px;
   border-radius: 50%;
-  background-image: url(unchecked.png);
-  background-size: cover;
-  background-position: center;
-  top: 15px;
-  left: 0px;
-  
+
 
 
 }
@@ -102,6 +103,9 @@ ul li::before{
 ul li.check{
     color:gray;
     text-decoration: line-through;
+    padding: 5px;
+    
+    
 }
 
 ul li.check::before{
@@ -111,11 +115,8 @@ ul li.check::before{
     height: 25px; 
     width: 28px;
     border-radius: 50%;
-    background-image: url(checked.png);
-    background-size: cover;
-    background-position: center;
-    top: 15px;
-    left: 0px;
+    
+
     
   
 
