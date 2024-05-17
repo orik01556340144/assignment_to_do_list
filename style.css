@@ -1,172 +1,151 @@
 
-.first {
 
+.first {
     width: 100%;
     min-height: 100vh;
     padding: 10px;
-    background: linear-gradient(135deg,gray,green);
-
-
-
+    background: linear-gradient(135deg, gray, green);
 }
 
-.line{
+
+.line {
     display: flex;
     justify-content: space-between;
-    
-
 }
-.line button{
+
+.line button {
     margin-top: 20px;
     margin-left: 50px;
     color: red;
     height: 25px;
-   width: 70px;
-   text-align: center;
-   align-content: center;
-   border-radius: 15px;
-   
+    width: 70px;
+    text-align: center;
+    align-content: center;
+    border-radius: 15px;
 }
 
-.line button:hover
-{
-   background-color: antiquewhite;
-  
-   height: 25px;
-   width: 100px;
-   text-align: center;
-   align-content: center;
-   border-radius: 15px;
+.line button:hover {
+    background-color: antiquewhite;
+    height: 25px;
+    width: 100px;
+    text-align: center;
+    align-content: center;
+    border-radius: 15px;
 }
+
 
 .to-do-app {
-
     width: 100%;
     display: flex;
-   
     align-items: center;
-
     padding-left: 45%;
     padding-top: 50px;
-
 }
-.to-do-app h2{
+
+.to-do-app h2 {
     padding-top: 8px;
     color: white;
 }
 
-
-
 .to-do-app img {
     float: right;
-
     height: 50px;
     border-radius: 50%;
     padding-left: 20px;
-    
 }
 
-.main{
 
-    background-color:white;
+.main {
+    background-color: white;
     margin: 100px auto 20px;
     width: 50%;
     max-height: 150vw;
-    padding:40px 30px 70px ;
+    padding: 40px 30px 70px;
     border-radius: 10px;
-
-}
-.main-box{
-
-   display: flex;
-   align-items: center;
-   justify-content: space-between;
-
 }
 
-.main-box input{
+.main-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.main-box input {
     width: 80%;
     height: 50px;
     border-radius: 20px;
     background-color: gainsboro;
 }
 
-.main-box button{
+.main-box button {
     width: 15%;
     height: 50px;
     border-radius: 20px;
-
 }
 
 
-
-
-
-ul li{
-
-
-user-select: none;
-list-style: none;
-cursor: pointer;
-position: relative;
-
-font-size: larger;
-padding: 10px;
-
-
-}
-
-ul li::before{
- 
-  content:'';
-  position: absolute;
-  display: flex;
-  height: 25px; 
-  width: 28px;
-  border-radius: 50%;
-
-
-
-}
-
-ul li.check{
-    color:gray;
-    text-decoration: line-through;
-    padding: 5px;
+ul li {
     
+    user-select: none;
+    list-style: none;
+    cursor: pointer;
+    position: relative;
     
+    font-size: larger;
+    padding: 10px;
+    border: 2px solid black; 
+    margin-bottom: 5px; 
+    
+   
 }
 
-ul li.check::before{
-    content:'';
+ul li::before {
+    content: '';
     position: absolute;
     display: flex;
-    height: 25px; 
+    height: 25px;
     width: 28px;
     border-radius: 50%;
-    
-
-    
-  
+    transform: translateY(-50%);
 
 }
 
-ul li span{
+ul li.check {
+    color: gray;
+    text-decoration: line-through;
+    margin: 5px;
+}
 
+ul li.check::before {
+    content: '';
+    position: absolute;
+    display: flex;
+    height: 25px;
+    width: 28px;
+    border-radius: 50%;
+}
+
+ul li span {
     position: absolute;
     right: 0;
     top: 3px;
-    width:  38px;
+    width: 38px;
     height: 38px;
     font-size: 22px;
     color: red;
     line-height: 40px;
     text-align: center;
     border-radius: 50%;
-
 }
 
-ul li span:hover{
+ul li span:hover {
     background-color: antiquewhite;
 }
 
+ul li edit {
+    cursor: pointer;
+    margin-right: 10px; 
+    color: black;
+    position: absolute;
+    right: 30px; 
+}

@@ -6,6 +6,11 @@ function addTask() {
         alert("You must write a task!");
     } else {
         let li = document.createElement("li");
+        li.setAttribute('draggable', true);
+        li.addEventListener('dragstart', dragStart);
+        li.addEventListener('dragover', dragOver);
+        li.addEventListener('drop', drop);
+        li.addEventListener('dragend', dragEnd); // Added dragend event to remove dragging class
 
         let checkbox = document.createElement("input");
         checkbox.type = "checkbox";
@@ -51,9 +56,6 @@ listContainer.addEventListener("click", function (e) {
     }
 }, false);
 
-
-
-
 function saveData() {
     localStorage.setItem("data", listContainer.innerHTML);
 }
@@ -62,6 +64,12 @@ function show() {
     listContainer.innerHTML = localStorage.getItem("data");
 
     Array.from(listContainer.getElementsByTagName("li")).forEach(li => {
+        li.setAttribute('draggable', true);
+        li.addEventListener('dragstart', dragStart);
+        li.addEventListener('dragover', dragOver);
+        li.addEventListener('drop', drop);
+        li.addEventListener('dragend', dragEnd); // Added dragend event to remove dragging class
+
         const checkbox = li.querySelector("input[type='checkbox']");
         checkbox.addEventListener("change", function () {
             if (this.checked) {
@@ -89,6 +97,38 @@ function show() {
 function deleteAllTasks() {
     listContainer.innerHTML = "";
     saveData();
+}
+
+function dragStart(e) {
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/plain', e.target.dataset.index);
+    e.target.classList.add('dragging');
+}
+
+function dragOver(e) {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+}
+
+function drop(e) {
+    e.preventDefault();
+    const draggingElement = document.querySelector('.dragging');
+    if (e.target.tagName === 'LI' && e.target !== draggingElement) {
+        const dropY = e.clientY;
+        const targetRect = e.target.getBoundingClientRect();
+        const dropBefore = (dropY - targetRect.top) < (targetRect.height / 2);
+
+        if (dropBefore) {
+            listContainer.insertBefore(draggingElement, e.target);
+        } else {
+            listContainer.insertBefore(draggingElement, e.target.nextSibling);
+        }
+    }
+    saveData();
+}
+
+function dragEnd(e) {
+    e.target.classList.remove('dragging');
 }
 
 show();
